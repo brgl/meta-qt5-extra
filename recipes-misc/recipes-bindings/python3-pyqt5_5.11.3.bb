@@ -5,12 +5,9 @@ SECTION = "devel/python"
 LICENSE = "GPLv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d32239bcb673463ab874e80d47fae504"
 
-SRC_URI = "\
-    https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-${PV}/PyQt5_gpl-${PV}.tar.gz \
-    file://0001-Make-sure-to-find-python3-sip-code-generator.patch \
-"
-SRC_URI[md5sum] = "33d6d2ab8183da17ac18b8132a4b278e"
-SRC_URI[sha256sum] = "c190dac598c97b0113ca5e7a37c71c623f02d1d713088addfacac4acfa4b8394"
+SRC_URI = "${SOURCEFORGE_MIRROR}/pyqt/PyQt5_gpl-${PV}.tar.gz"
+SRC_URI[md5sum] = "aac3428e90eca5df68c5764282fd9b98"
+SRC_URI[sha256sum] = "c9b57d15601d436faf35dacf8e0acefa220194829a653e771e80b189b3261073"
 
 PE = "1"
 
@@ -57,6 +54,8 @@ do_configure() {
     echo yes | python3 configure.py --verbose --qmake ${OE_QMAKE_QMAKE} --configuration pyqt.cfg --sysroot ${SYSROOTDIR}
 }
 
+PARALLEL_MAKEINST = ""
+
 do_install() {
      oe_runmake install
 }
@@ -65,7 +64,7 @@ do_install_class-native() {
      oe_runmake install
 }
 
-RDEPENDS_${PN}_append_class-target = " python3-core python3-sip"
+RDEPENDS_${PN}_append_class-target = " python3-core python3-sip3"
 
 FILES_${PN} += " \
     ${libdir}/${PYTHON_DIR}/site-packages \
